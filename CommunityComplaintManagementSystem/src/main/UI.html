@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Community Complaint Management System</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f2f5;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 320px;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+        input[type=text], input[type=password], input[type=email], input[type=number], select, textarea {
+            width: 100%;
+            padding: 7px 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px 0;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-link {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        /* Message styling */
+        #message {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            height: 20px; /* reserve space */
+        }
+        /* Complaint item styling (for future) */
+        .complaint-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .status-open { color: red; font-weight: bold; }
+        .status-inprogress { color: orange; font-weight: bold; }
+        .status-closed { color: green; font-weight: bold; }
+        /* Complaint section (hidden initially) */
+        #complaintSection {
+            display: none;
+            max-width: 700px;
+            width: 100%;
+            padding: 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+        #complaintsList {
+            margin-top: 20px;
+        }
+        #logoutBtn {
+            background-color: #dc3545;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="message"></div>
+
+<!-- Login Form -->
+<div class="form-container" id="loginFormContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="loginUsername">Username</label>
+        <input type="text" id="loginUsername" required />
+
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required />
+
+        <button type="submit">Login</button>
+    </form>
+    <div class="toggle-link" id="showRegister">Don't have an account? Register</div>
+</div>
+
+<!-- Registration Form (hidden initially) -->
+<div class="form-container" id="registerFormContainer" style="display:none;">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <label for="regName">Full Name</label>
+        <input type="text" id="regName" required />
+
+        <label for="regAddress">Address</label>
+        <textarea id="regAddress" rows="2" required></textarea>
+
+        <label for="regAge">Age</label>
+        <input type="number" id="regAge" min="1" max="120" required />
+
+        <label for="regGender">Gender</label>
+        <select id="regGender" required>
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="regEmail">Email</label>
+        <input type="email" id="regEmail" required />
+
+        <label for="regPassword">Password</label>
+        <input type="password" id="regPassword" required />
+
+        <button type="submit">Register</button>
+    </form>
+    <div class="toggle-link" id="showLogin">Already have an account? Login</div>
+</div>
+
+<!-- Complaint Section (hidden initially) -->
+<div id="complaintSection">
+    <h2>Raise Complaint</h2>
+    <form id="complaintForm">
+        <label for="category">Category</label>
+        <select id="category" required>
+            <option value="">Select</option>
+            <option value="Road">Road</option>
+            <option value="Water">Water</option>
+            <option value="Electricity">Electricity</option>
+            <option value="Garbage">Garbage</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Enter your location" required />
+
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" placeholder="Describe your complaint" required></textarea>
+
+        <button type="submit">Submit Complaint</button>
+    </form>
+
+    <h2>Your Complaints</h2>
+    <div id="complaintsList">Loading complaints...</div>
+
+    <button id="logoutBtn">Logout</button>
+</div>
+
+</body>
+</html>
